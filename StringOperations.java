@@ -54,7 +54,7 @@ public class StringOperations {
 		char[] array = string.toCharArray();
 		int index = 0;
 		char suspect;
-		char target;
+		char target = ' ';
 
 		for (int i = 0; i < array.length; i++) {
 			for (int j = (i + 1); j <= array.length; j++) {
@@ -62,7 +62,7 @@ public class StringOperations {
 				if (array[j] == array[i]) {
 					target = array[(j + 1)];
 					index = array[j];
-					
+
 				} else {
 
 				}
@@ -74,7 +74,7 @@ public class StringOperations {
 	}
 
 	/**
-	 * replaceSubstring accepts three references to String objects as arguments. Let’s call them string1, string2, and string3. It searches in string1 for all occurrences of strings. When if finds an occurrence of string2, it replaces it with string3. The method returns a reference to a String object. For example, suppose the three arguments have the following values:
+	 * replaceSubstring accepts three references to String objects as arguments. Let’s call them string1, string2, and string3. It searches in string1 for all occurrences of string2. If it finds an occurrence of string2, it replaces it with string3. The method returns a reference to a String object. For example, suppose the three arguments have the following values:
 	 *
 	 * @param string1 the string object to search.
 	 * @param string2 the string object to search for in string1.
@@ -82,12 +82,15 @@ public class StringOperations {
 	 * @return A reference to a a StringBuilder object.
 	 */
 	public static String replaceSubstring(String string1, String string2, String string3) {
+
+		String[] newString = string1.split("\\s");
+
 		//Create a StringBuilder object
 		StringBuilder string4 = new StringBuilder(string1);
 		// Search string1 for occurences of string2
-		for (int i = 0; i < string4.length(); i++) {
-			if (string4.substring(i, string3.length()).equalsIgnoreCase(string2)) {
-				string4.replace(i, string3.length(), string3);
+		for (int i = 0; i < newString.length; i++) {
+			if (newString[i].equalsIgnoreCase(string2)) {
+				string4.replace(i, string3.length() - 1, string3);
 			}
 		}
 
