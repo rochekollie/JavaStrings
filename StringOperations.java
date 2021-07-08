@@ -18,11 +18,8 @@ public class StringOperations {
 	 * @return The number of words in the string.
 	 */
 	public static int wordCount(String string) {
-
 		String[] array = string.split("\\s");
-
 		int countWords = 0;
-		int countSpace = 0;
 
 		// count words in the string
 		for (int i = 0; i < array.length; i++) {
@@ -30,18 +27,6 @@ public class StringOperations {
 				countWords++;
 			}
 		}
-
-		// FIXME - Make sure only actual number of words are return
-		// NOTE - Count the whitespace and separate them from the words
-		// char[] space = string.toCharArray();
-
-		// // count whitespace in the string
-		// for (var i = 0; i < space.length; i++) {
-		// 	if (Character.isWhitespace(space[i])) {
-		// 		countSpace++;
-		// 	}
-		// }
-
 		return countWords;
 	}
 
@@ -54,25 +39,16 @@ public class StringOperations {
 	public static char mostFrequent(String string) {
 
 		char[] array = string.toCharArray();
+
 		int index = 0;
-		char suspect;
-		char target = ' ';
-
 		for (int i = 0; i < array.length; i++) {
-			for (int j = (i + 1); j <= array.length; j++) {
-				target = array[j];
-				if (array[j] == array[i]) {
-					target = array[(j + 1)];
-					index = array[j];
-
-				} else {
-
+			for (int j = i + 1; j < array.length; j++) {
+				if ((String.valueOf(array[i]).equalsIgnoreCase(String.valueOf(array[j])))) {
+					index = j;
 				}
-				suspect = array[j];
 			}
 		}
-
-		return target;
+		return array[index];
 	}
 
 	/**
@@ -138,46 +114,58 @@ public class StringOperations {
 	 */
 	public static String reverseWords(String string) {
 
-		//Create a StringBuilder object
-		// StringBuilder words = new StringBuilder(string);
+		// Store string1 in an array
+		String[] newString = string.split("\\s");
 
-		// String[] myWords = words.
+		// Create a StringBuilder object
+		StringBuilder outputString = new StringBuilder();
 
-		// //Reverse the string
-		// for (int i = string.length(); i > 0; i--) {
-		// 	if
-		// 	words.reverse();
-		// }
-		// return words.toString();
+		for (int i = newString.length - 1; i > -1; i--) {
+			if (i > 0) {
+				outputString.append(newString[i] + " ");
+			} else {
+				outputString.append(newString[i]);
+			}
+		}
 
-		return " ";
+		return outputString.toString();
 	}
 
 	/**
-	 * TtoPigLatin accepts a reference to a String object as an argument. It reads words from the argument as input and coverts each word to “Pig Latin”, and returns a reference to a String object which represents a converted Pig Latin. In one version of Pig Latin, you convert a word by removing the first letter, placing that letter at the end of the word, and then appending “ay” to the word. Here is an example:
+	 * toPigLatin accepts a reference to a String object as an argument. It reads words from the argument as input and coverts each word to “Pig Latin”, and returns a reference to a String object which represents a converted Pig Latin. In one version of Pig Latin, you convert a word by removing the first letter, placing that letter at the end of the word, and then appending “ay” to the word. Here is an example:
 	 *
 	 * English: I slept most of the night
 	 * Pig Latin: Iay leptsay ostmay foay hetay ightnay
 
 	 *
 	 * @param string the string object to manipulate.
+	 * @param app the string object to append.
 	 * @return A manipulated string reference object.
 	 */
 	public static String toPigLatin(String string, String app) {
 
-		//Create a StringBuilder object
-		StringBuilder sentence = new StringBuilder(string);
+		///Create a StringBuilder object
+		StringBuilder latin = new StringBuilder(string);
 
-		//Replace first character to uppercase
-		String firstChar = String.valueOf(sentence.charAt(0));
-		sentence.replace(0, 1, firstChar.toUpperCase());
+		//Rearrange the string to pig latin
+		for (int i = 0; i < latin.length() - 1; i++) {
+			if (Character.isWhitespace(latin.charAt(i + 1)) && Character.isLetter(latin.charAt(0))) {
+				// save character to delete
+				char delChar = latin.charAt(i);
 
-		for (int i = 0; i < sentence.length(); i++) {
-			if (!Character.isLetterOrDigit(sentence.charAt(i))) {
-				sentence.replace((i + 2), (i + 2), String.valueOf(sentence.charAt(i)).toUpperCase());
+				// delete character
+				latin.deleteCharAt(i + 2);
+
+				// insert deleted character + app at the end of each word
+				// for (int j = i; j < latin.length() - i; j++) {
+				// 	if (Character.isWhitespace(latin.charAt(j))) {
+				// 		latin.insert(j + 2, delChar + app);
+				// 	}
+				// }
 			}
 		}
-		return sentence.toString();
+
+		return latin.toString();
 	}
 
 }
