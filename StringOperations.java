@@ -1,3 +1,5 @@
+import java.lang.ref.Cleaner;
+
 //*****************************************
 //   Name: Robert Kollie
 //   CTP 150 – 400
@@ -83,15 +85,22 @@ public class StringOperations {
 	 */
 	public static String replaceSubstring(String string1, String string2, String string3) {
 
+		// Store string1 in an array
 		String[] newString = string1.split("\\s");
 
-		//Create a StringBuilder object
-		StringBuilder string4 = new StringBuilder(string1);
-		// Search string1 for occurences of string2
+		// Search array for occurrence of string2 and replace with string3
 		for (int i = 0; i < newString.length; i++) {
 			if (newString[i].equalsIgnoreCase(string2)) {
-				string4.replace(i, string3.length() - 1, string3);
+				newString[i] = string3;
 			}
+		}
+
+		// Create a StringBuilder object
+		StringBuilder string4 = new StringBuilder();
+
+		// Append array elements to string4
+		for (String s : newString) {
+			string4.append(s + " ");
 		}
 
 		return string4.toString();
@@ -105,19 +114,20 @@ public class StringOperations {
 	 */
 	public static String capSentence(String string) {
 
-		//Create a StringBuilder object
-		StringBuilder cap = new StringBuilder(string);
+		///Create a StringBuilder object
+		StringBuilder sentence = new StringBuilder(string);
 
 		//Replace first character to uppercase
-		String firstChar = String.valueOf(cap.charAt(0));
-		cap.replace(0, 1, firstChar.toUpperCase());
+		String firstChar = String.valueOf(sentence.charAt(0));
+		sentence.replace(0, 1, firstChar.toUpperCase());
 
-		for (int i = 0; i < cap.length(); i++) {
-			if (!Character.isLetterOrDigit(cap.charAt(i))) {
-				cap.replace((i + 2), (i + 2), String.valueOf(cap.charAt(i)).toUpperCase());
+		for (int i = 0; i < sentence.length() - 1; i++) {
+			if (!(Character.isLetter(sentence.charAt(i))) && (!Character.isLetter(sentence.charAt(i + 1)))) {
+				sentence.replace((i + 2), (i + 3), String.valueOf(sentence.charAt(i + 2)).toUpperCase());
 			}
 		}
-		return cap.toString();
+
+		return sentence.toString();
 	}
 
 	/**
@@ -156,18 +166,18 @@ public class StringOperations {
 	public static String toPigLatin(String string, String app) {
 
 		//Create a StringBuilder object
-		StringBuilder cap = new StringBuilder(string);
+		StringBuilder sentence = new StringBuilder(string);
 
 		//Replace first character to uppercase
-		String firstChar = String.valueOf(cap.charAt(0));
-		cap.replace(0, 1, firstChar.toUpperCase());
+		String firstChar = String.valueOf(sentence.charAt(0));
+		sentence.replace(0, 1, firstChar.toUpperCase());
 
-		for (int i = 0; i < cap.length(); i++) {
-			if (!Character.isLetterOrDigit(cap.charAt(i))) {
-				cap.replace((i + 2), (i + 2), String.valueOf(cap.charAt(i)).toUpperCase());
+		for (int i = 0; i < sentence.length(); i++) {
+			if (!Character.isLetterOrDigit(sentence.charAt(i))) {
+				sentence.replace((i + 2), (i + 2), String.valueOf(sentence.charAt(i)).toUpperCase());
 			}
 		}
-		return cap.toString();
+		return sentence.toString();
 	}
 
 }

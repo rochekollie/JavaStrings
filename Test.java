@@ -2,11 +2,19 @@
 public class Test {
 	public static void main(String[] args) {
 
-		String string1 = "the dog jumped over the fence and the cat";
-		String string2 = "the";
-		String string3 = "that";
+		String string = "hello! my name is Joe. what is your name? nice to meet you! would you like to go our with me?";
 
-		System.out.println(StringOperations.replaceSubstring(string1, string2, string3));
+
+
+		System.out.println("------------------------------------------------");
+
+
+
+
+
+		
+		System.out.println("-------------------------------------------------");
+
 
 
 
